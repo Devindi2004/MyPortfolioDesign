@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devindi Punchihewa - Full Stack Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<!-- Loading Screen -->
+<div class="loading" id="loading">
+    <div class="loader"></div>
+</div>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="nav-container">
+        <div class="logo">DP</div>
+        <nav>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#project" class="nav-link">Project</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="particles" id="particles"></div>
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Hello, I'm
+                <span class="hero-name">Devindi Punchihewa</span>
+            </h1>
+            <p class="hero-subtitle">Full Stack Developer</p>
+
+            <div class="social-links">
+                <a href="#" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+
+            <button class="cta-button" onclick="downloadCV()">
+                <i class="fas fa-download"></i> Download CV
+            </button>
+        </div>
+
+        <div class="hero-image">
+            <div class="hero-shape">
+                <img src="../image/WhatsApp_Image_2025-08-23_at_16.21.46-removebg-preview.png" width="100%" height="100%" >
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Loading Screen
+    window.addEventListener('load', () => {
+        const loading = document.getElementById('loading');
+        setTimeout(() => {
+            loading.classList.add('hide');
+        }, 1500);
+    });
+
+    // Mobile Menu Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Header Scroll Effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            // Close mobile menu if open
+            navMenu.classList.remove('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        });
+    });
+
+    // Particle System
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Random size between 2px and 6px
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+
+            // Random horizontal position
+            particle.style.left = Math.random() * 100 + '%';
+
+            // Random animation delay
+            particle.style.animationDelay = Math.random() * 8 + 's';
+
+            // Random animation duration
+            particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    // Initialize particles
+    createParticles();
+
+    // CV Download Function
+    function downloadCV() {
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Devindi Punchihewa - Full Stack Developer CV\n\nThis is a sample CV file. Replace this with your actual CV content.');
+        link.download = 'Devindi_Punchihewa_CV.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success message
+        alert('CV download started! (This is a demo - replace with your actual CV file)');
+    }
+
+    // Add click effect to buttons
+    document.querySelectorAll('.cta-button, .social-link').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple-effect');
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+
+    // Add ripple effect styles
+    const style = document.createElement('style');
+    style.textContent = `
+            .ripple-effect {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            }
+
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+    document.head.appendChild(style);
+
+    // Cursor trail effect
+    let cursor = {x: 0, y: 0};
+    let trails = [];
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.x = e.clientX;
+        cursor.y = e.clientY;
+
+        // Create trail element
+        const trail = document.createElement('div');
+        trail.style.position = 'fixed';
+        trail.style.left = cursor.x + 'px';
+        trail.style.top = cursor.y + 'px';
+        trail.style.width = '6px';
+        trail.style.height = '6px';
+        trail.style.background = 'rgba(245, 184, 0, 0.7)';
+        trail.style.borderRadius = '50%';
+        trail.style.pointerEvents = 'none';
+        trail.style.zIndex = '9999';
+        trail.style.transition = 'all 0.5s ease-out';
+
+        document.body.appendChild(trail);
+
+        // Remove trail after animation
+        setTimeout(() => {
+            trail.style.opacity = '0';
+            trail.style.transform = 'scale(0)';
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, 500);
+        }, 100);
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+
+    // Observe animated elements
+    document.querySelectorAll('.hero-content, .hero-image').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            navMenu.classList.remove('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        }
+    });
+
+    // Performance optimization: Throttle scroll events
+    let ticking = false;
+
+    function updateScrollEffects() {
+        const scrollY = window.scrollY;
+
+        // Header effect
+        if (scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        // Parallax effect for hero background
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.transform = `translateY(${scrollY * 0.5}px)`;
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateScrollEffects);
+            ticking = true;
+        }
+    });
+</script>
+</body>
+</html>
