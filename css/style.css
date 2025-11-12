@@ -1,19 +1,18 @@
-
-     /* -------------------------------------------------
+/* -------------------------------------------------
         1. ROOT & GLOBAL
      ------------------------------------------------- */
- :root{
-     --primary:#F5B800;
-     --accent:#FFD700;
-     --dark:#0a0a0a;
-     --darker:#000;
-     --light:#fff;
-     --gray:#1a1a1a;
-     --glass:rgba(30,30,30,.6);
-     --border:rgba(245,184,0,.2);
-     --text:#e0e0e0;
-     --text-light:#aaa;
- }
+:root{
+    --primary:#F5B800;
+    --accent:#FFD700;
+    --dark:#0a0a0a;
+    --darker:#000;
+    --light:#fff;
+    --gray:#1a1a1a;
+    --glass:rgba(30,30,30,.6);
+    --border:rgba(245,184,0,.2);
+    --text:#e0e0e0;
+    --text-light:#aaa;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{font-size:16px;}
 body{
@@ -136,8 +135,13 @@ h3{font-size:clamp(1.3rem,4vw,1.8rem);}
    6. HERO
 ------------------------------------------------- */
 .hero{
-    min-height:100vh;display:flex;align-items:center;
-    position:relative;overflow:hidden;
+    /* UPDATED: Add padding-top to push content below the fixed header */
+    padding-top: 80px;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
     background:linear-gradient(135deg,#000,#111);
 }
 .hero-bg{
@@ -202,6 +206,22 @@ h3{font-size:clamp(1.3rem,4vw,1.8rem);}
     perspective:1200px;opacity:0;
     transform:translateX(60px) rotateY(25deg);
 }
+/* NEW: Adjust Hero Image size and position (Increased max-width and shape size) */
+.hero-image-adjusted {
+    margin-top: 50px;
+    max-width: 450px; /* Increased from 400px to 450px */
+}
+.hero-image-adjusted .hero-shape {
+    width: 95%; /* Increased from 90% to 95% */
+    padding-top: 95%; /* Increased from 90% to 95% */
+}
+.hero-image-adjusted .hero-shape img {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+}
 .hero-shape{
     position:relative;width:100%;padding-top:100%;
     background:linear-gradient(135deg,var(--primary),var(--accent));
@@ -223,7 +243,8 @@ h3{font-size:clamp(1.3rem,4vw,1.8rem);}
 /* -------------------------------------------------
    7. SECTION COMMON
 ------------------------------------------------- */
-section{padding:120px 5% 80px;position:relative;}
+/* UPDATED: Increased section spacing to 9rem top, 7rem bottom */
+section{padding:9rem 5% 7rem;position:relative;}
 .glass-card{
     background:var(--glass);backdrop-filter:blur(20px);
     border:1px solid var(--border);border-radius:28px;
@@ -658,7 +679,10 @@ footer{
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
-    .hero-image { order: -1; max-width: 300px; margin: 0 auto 2rem; }
+    /* Responsive එකේදී adjust කළ image div එකේ margin ඉවත් කිරීම */
+    .hero-image-adjusted { margin-top: 0; }
+    /* Hero image එකේ responsive ප්‍රමාණය සුළු වශයෙන් අඩු කිරීම */
+    .hero-image { order: -1; max-width: 280px; margin: 0 auto 2rem; }
     .hero-shape { width: 260px; height: 260px; margin: 0 auto; }
     .profile-card { height: auto; min-height: 400px; }
     .profile-image-wrapper { height: 380px; }
@@ -720,3 +744,78 @@ footer{
     .info-card { padding: 1rem; }
     .info-icon { width: 40px; height: 40px; font-size: 1.1rem; }
 }
+
+
+/* CUSTOM STYLES FOR PROFESSIONAL POLISH */
+
+/* SOCIAL LINKS: Remove all underlines from icon-only links across the site */
+.social-link,
+.social-links a, /* All links inside social-links container */
+.contact-info .social-links a {
+    text-decoration: none !important;
+}
+
+/* Section Spacing Adjustments */
+/* section padding is handled in 7. SECTION COMMON: section{padding:9rem 5% 7rem;position:relative;} */
+
+/* HERO Section: Keep min-height, but remove conflicting padding-top override from previous step */
+.hero {
+    padding-bottom: 5rem;
+}
+
+/* Ensure link targets are correct */
+.nav-menu a[href="#home"], .nav-menu a[href="#about"], .nav-menu a[href="#skills"], .nav-menu a[href="#project"], .nav-menu a[href="#gallery"], .nav-menu a[href="#contact"],
+.footer-links a[href="#home"], .footer-links a[href="#about"], .footer-links a[href="#skills"], .footer-links a[href="#project"], .footer-links a[href="#gallery"], .footer-links a[href="#contact"] {
+    text-decoration: none; /* Ensure nav links are not underlined */
+}
+
+/* --- GALLERY MODAL (LIGHTBOX) STYLES --- */
+.gallery-modal {
+    display: none; /* Default state: Hidden */
+    position: fixed;
+    z-index: 2000; /* Header/preloader වලටත් වඩා ඉහළින් පෙන්වීමට */
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    backdrop-filter: blur(8px);
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 900px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    border-radius: 10px;
+    box-shadow: 0 4px 80px rgba(245, 184, 0, 0.4);
+}
+
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+/* --- END OF GALLERY MODAL STYLES --- */
