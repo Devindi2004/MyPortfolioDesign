@@ -12,9 +12,9 @@ mobileToggle.addEventListener('click',()=>{navMenu.classList.toggle('active');
 document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',function(e){
     e.preventDefault();
     const target=document.querySelector(this.getAttribute('href'));
-    // Header height එක නිවැරදිව ලබා ගැනීමට සහ සුළු පරතරයක් (30px) තැබීමට
+
     const headerH=document.querySelector('.header').offsetHeight;
-    window.scrollTo({top:target.offsetTop-headerH-30,behavior:'smooth'}); // 20 වෙනුවට 30 යොදා ඇත
+    window.scrollTo({top:target.offsetTop-headerH-30,behavior:'smooth'});
     navMenu.classList.remove('active');
 }));
 
@@ -84,11 +84,11 @@ document.querySelectorAll('button,.social-link,.project-link,.btn').forEach(el=>
 /* ---------- FORM & CV (WHATSAPP INTEGRATION) ---------- */
 function downloadCV(){alert('CV Download Started! (Demo)');}
 
-// WhatsApp යැවීමේ කාර්යය - 0757804240 අංකයට පණිවිඩයක් යැවීම සඳහා
+
 document.getElementById('contactForm').addEventListener('submit',e=>{
     e.preventDefault();
 
-    // 0757804240 අංකය ජාත්‍යන්තර කේතය (94) සමඟ
+
     const phoneNumber = '94757804240';
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
@@ -100,17 +100,17 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
         return;
     }
 
-    // පණිවිඩය සකස් කිරීම
+
     const fullMessage = `Hello Devindi,\n\nI received a message from your portfolio.\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
 
-    // WhatsApp සබැඳිය නිර්මාණය කිරීම (කේතගත කර ඇත)
+
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(fullMessage)}`;
 
-    // නව ටැබ් එකකින් විවෘත කිරීම
+
     window.open(whatsappUrl, '_blank');
 
     alert('You are being redirected to WhatsApp to send the message!');
-    e.target.reset(); // පෝරමය හිස් කිරීම
+    e.target.reset();
 });
 
 
@@ -162,7 +162,7 @@ const modalImg = document.getElementById("modalImage");
 function openModal(imgSrc) {
     modal.style.display = "block";
     modalImg.src = imgSrc;
-    // Modal එක විවෘත වන විට scroll වීම නැවැත්වීමට
+
     document.body.style.overflow = "hidden";
 }
 
@@ -171,7 +171,7 @@ function closeModal() {
     document.body.style.overflow = "auto";
 }
 
-// Modal එකෙන් පිටත ක්ලික් කළ විට වැසීමට
+
 window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
